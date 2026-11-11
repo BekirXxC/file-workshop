@@ -67,6 +67,51 @@
   languages.setAttribute("aria-label", "Language");
   languageField.append(languages);
   toolbar.prepend(languageField);
+  const languageHint = make("div", "language-hint");
+  languageHint.id = "language-hint";
+  languageHint.hidden = true;
+  languageHint.setAttribute("role", "status");
+  languageHint.setAttribute("aria-atomic", "true");
+  const languageHintText = make("div", "language-hint-copy");
+  const closeLanguageHint = make("button", "language-hint-close", "×");
+  closeLanguageHint.type = "button";
+  closeLanguageHint.setAttribute("aria-label", "Close");
+  languageHint.append(languageHintText, closeLanguageHint);
+  languageField.append(languageHint);
+  let languageHintDismissed = false;
+  let languageHintShown = false;
+  let languageHintPulseTimer;
+  let languageHintDismissTimer;
+  function dismissLanguageHint() {
+    languageHintDismissed = true;
+    languageHint.hidden = true;
+    languageHint.classList.remove("is-pulsing");
+    window.clearTimeout(languageHintPulseTimer);
+    window.clearTimeout(languageHintDismissTimer);
+  }
+  function showLanguageHint() {
+    if (languageHintDismissed || languageHintShown || languages.options.length < 2)
+      return;
+    languageHintShown = true;
+    languageHintText.append(
+      make("strong", "", `${languages.options.length} languages available`),
+      make("span", "", "Choose yours here"),
+    );
+    languageHint.hidden = false;
+    languageHintPulseTimer = window.setTimeout(() => {
+      if (!window.matchMedia?.("(prefers-reduced-motion: reduce)").matches)
+        languageHint.classList.add("is-pulsing");
+    }, 7000);
+    languageHintDismissTimer = window.setTimeout(dismissLanguageHint, 10000);
+  }
+  closeLanguageHint.addEventListener("click", dismissLanguageHint);
+  for (const event of ["pointerdown", "focus", "keydown", "change"])
+    languages.addEventListener(event, dismissLanguageHint);
+  window.addEventListener("languagechange", () => {
+    if (languageHintShown) dismissLanguageHint();
+  });
+  // Initialization emits languagechange after atelierready; wait until it completes.
+  window.addEventListener("load", showLanguageHint, { once: true });
   const theme = make("button", "icon-button theme-button");
   theme.id = "theme-toggle";
   theme.setAttribute("aria-label", "Dark mode");

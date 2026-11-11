@@ -33,6 +33,12 @@ File Workshop puts those jobs in one place:
 
 ## Quick start
 
+**[Open the web app](https://bekirxxc.github.io/file-workshop/)** · **[Download for Windows (64-bit)](https://github.com/BekirXxC/file-workshop/releases/download/v2.2.0/File-Workshop-2.2.0-Windows-x64.exe)** · **[Download offline HTML](https://github.com/BekirXxC/file-workshop/releases/download/v2.2.0/File-Workshop.html)**
+
+The Windows edition opens in its own window and runs offline without installation, administrator access, Node.js or a browser setup. Download the `.exe`, then double-click it. This community build is unsigned; Windows may show an unknown-publisher notice. Windows 10/11 x64 is supported. The HTML edition also works on other desktop operating systems in a modern browser.
+
+The interface starts in English. A short tip beside the language menu introduces the available languages; choose your language in the top-right corner.
+
 1. Download the project and extract it.
 2. Open **`index.html`** in a modern browser.
 3. Add a file, choose a tool, review the preview and download the result.
@@ -105,6 +111,8 @@ For **GitHub Pages**:
 See GitHub's [publishing-source guide](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site). A host may keep its own access logs; File Workshop does not send file contents to it.
 
 ## Development
+
+To build the Windows executable yourself, run `npm ci` followed by `npm run build` inside `desktop/` on Windows. Build dependencies require internet access; the finished application does not. See [desktop/README.md](desktop/README.md).
 
 Node.js **20+** is needed only for tests and the optional portable build. No dependency installation is required.
 

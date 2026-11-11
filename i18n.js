@@ -2,7 +2,7 @@
 (function (root) {
   "use strict";
   const locales = Object.create(null);
-  let language = "tr";
+  let language = "en";
   let observer = null;
   let applying = false;
   let scheduled = false;

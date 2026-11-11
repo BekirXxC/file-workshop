@@ -4,3 +4,6 @@ Thumbs.db
 *.log
 coverage/
 standalone.html
+desktop/dist/
+desktop/app.html
+desktop/icon.png

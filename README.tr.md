@@ -12,6 +12,12 @@ Günlük dosya işleri için ücretsiz, açık kaynak ve tarayıcıda çalışan
 
 ## Kullanım
 
+**[Web uygulamasını aç](https://bekirxxc.github.io/file-workshop/)** · **[Windows EXE indir (64 bit)](https://github.com/BekirXxC/file-workshop/releases/download/v2.2.0/File-Workshop-2.2.0-Windows-x64.exe)** · **[Çevrimdışı HTML indir](https://github.com/BekirXxC/file-workshop/releases/download/v2.2.0/File-Workshop.html)**
+
+Windows 10/11 x64 sürümünde `.exe` dosyasını indirip çift tıklayın. Kurulum, yönetici yetkisi, Node.js veya internet gerekmez; uygulama kendi penceresinde açılır. Bu sürüm dijital imzasızdır, Windows bilinmeyen yayıncı bildirimi gösterebilir. Kaynaktan derleme adımları [desktop/README.md](desktop/README.md) dosyasındadır.
+
+İlk açılış dili İngilizcedir. Sağ üstteki dil menüsünün yanında mevcut dil sayısını gösteren kısa bir ipucu belirir; menüden Türkçeyi seçebilirsiniz.
+
 Klasörü açıp **index.html** dosyasına çift tıklayın. Güncel Chrome, Edge, Firefox veya Safari kullanın. İnternet bağlantısı gerekmez. GitHub Pages dahil herhangi bir statik web sunucusunda da çalışır; uygulama dosyalarını kök dizinde tutun.
 
 Ana ekrandaki **Örnek dosyalarla dene** düğmesi kişisel veri içermeyen örnekler oluşturur.
