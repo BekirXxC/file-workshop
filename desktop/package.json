@@ -1,0 +1,31 @@
+{
+  "name": "file-workshop-desktop",
+  "version": "2.2.0",
+  "description": "Offline file tools for Windows",
+  "productName": "File Workshop",
+  "license": "MIT",
+  "author": "File Workshop contributors",
+  "main": "main.cjs",
+  "private": true,
+  "scripts": {
+    "prepare-app": "node ../scripts/standalone.cjs && node prepare.cjs",
+    "start": "npm run prepare-app && electron .",
+    "build": "npm run prepare-app && electron-builder --win portable --x64 --publish never"
+  },
+  "devDependencies": {
+    "electron": "45.3.0",
+    "electron-builder": "26.18.0"
+  },
+  "build": {
+    "appId": "org.fileworkshop.desktop",
+    "asar": true,
+    "directories": { "output": "dist" },
+    "files": ["main.cjs", "app.html", "icon.png", "package.json"],
+    "win": {
+      "icon": "../assets/brand/file-workshop-icon.png",
+      "target": [{ "target": "portable", "arch": ["x64"] }],
+      "artifactName": "File-Workshop-${version}-Windows-x64.exe"
+    },
+    "portable": { "requestExecutionLevel": "user" }
+  }
+}
