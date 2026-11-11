@@ -4,6 +4,12 @@ const I18n = require("../i18n.js");
 const globalLocales = require("../locales-global.js");
 require("../locales-turkic.js");
 
+test("a fresh session starts in English", () => {
+  assert.equal(I18n.language, "en");
+  assert.equal(I18n.t("Genel bakış"), "Overview");
+  assert.equal(I18n.t("Language"), "Language");
+});
+
 test("catalog offers nineteen translated language options without fallback-only entries", () => {
   const entries = I18n.getLocales();
   assert.equal(entries.length, 19);
