@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="Dosyaları inceleyin, CSV düzeltin, görselleri dönüştürün ve metinleri temizleyin. Ücretsiz, açık kaynak, cihazınızda çalışan dosya araçları.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' file:; script-src 'self' file:; style-src 'self' file:; img-src 'self' file: blob: data:; connect-src 'none'; font-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>Dosya Atölyesi</title>
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="enhancements.css">
+  <script src="core.js" defer></script>
+  <script src="image.js" defer></script>
+  <script src="processing.js" defer></script>
+  <script src="advanced.js" defer></script>
+  <script src="i18n.js" defer></script>
+  <script src="locales-global.js" defer></script>
+  <script src="locales-turkic.js" defer></script>
+  <script src="enhancements.js" defer></script>
+  <script src="guides.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">İçeriğe geç</a>
+<div class="app-shell">
+  <aside class="sidebar">
+    <a class="brand" href="#home" aria-label="Dosya Atölyesi"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 80 80"><rect width="80" height="80" rx="19" fill="#28594b"/><path fill="#fffdf7" d="M13 22h23v7H21v8h13v7H21v17h-8zM34 37h7l4 14 4-11h6l4 11 4-14h7l-8 24h-6l-4-11-4 11h-6z"/><path fill="#edc576" d="M53 19h12v7H53z"/></svg></span><span id="brand-name" data-no-i18n>Dosya Atölyesi</span></a>
+    <div class="nav-label">ÇALIŞMA ALANI</div>
+    <nav aria-label="Araçlar">
+      <button data-page="home" class="nav-item active"><span data-icon="grid"></span>Genel bakış</button>
+      <button data-page="inspect" class="nav-item"><span data-icon="scan"></span>Dosya incele<span class="nav-count" id="file-count">0</span></button>
+      <div class="nav-label tools-label">ARAÇLAR</div>
+      <button data-page="csv" class="nav-item"><span data-icon="table"></span>CSV düzenle</button>
+      <button data-page="image" class="nav-item"><span data-icon="image"></span>Görsel dönüştür</button>
+      <button data-page="text" class="nav-item"><span data-icon="text"></span>Metin temizle</button>
+      <button data-page="rename" class="nav-item"><span data-icon="rename"></span>Toplu adlandır</button>
+    </nav>
+    <div class="sidebar-bottom"><div class="privacy-dot"></div><div><strong>Dosyaların burada kalır.</strong><p>Sunucuya yükleme yok.<br>Hesap ve günlük kota yok.</p></div></div>
+    <div class="sidebar-foot"><span>v1.0</span><button id="about-open">Hakkında</button></div>
+  </aside>
+  <div class="workspace">
+    <header class="topbar"><div class="breadcrumb">Atölye <span>/</span> <strong id="breadcrumb">Genel bakış</strong></div><div class="top-actions"><span class="local-badge"><span></span>YEREL İŞLEM</span><button id="about-top" class="icon-button" title="Hakkında ve sınırlar" aria-label="Hakkında ve sınırlar"><span data-icon="info"></span></button><button id="clear-all" class="icon-button" title="Çalışma alanını temizle" aria-label="Çalışma alanını temizle"><span data-icon="trash"></span></button></div></header>
+    <main id="main" tabindex="-1">
+      <section id="page-home" class="page active" aria-labelledby="home-title">
+        <div class="page-heading"><div><div class="eyebrow">KÜÇÜK İŞLER, DAHA AZ UĞRAŞ.</div><h1 id="home-title">Dosyanı getir.<br>İşini halledelim.</h1><p>İncele, düzelt, dönüştür. Gereken araçlar tek bir yerde.</p></div><div class="heading-note"><span data-icon="shield"></span><p>Her şey bu tarayıcıda.<br><strong>Kontrol sende.</strong></p></div></div>
+        <div id="dropzone" class="dropzone" role="button" tabindex="0" aria-label="Dosya ekle veya dosyaları buraya sürükle"><div class="upload-icon" data-icon="upload"></div><div><h2>Dosyalarını buraya bırak</h2><p>veya <span class="text-link">cihazından seç</span> · Birden fazla dosya ekleyebilirsin.</p></div><span class="drop-formats">PDF, CSV, JSON, görsel ve diğer dosyalar</span></div>
+        <div class="section-heading"><h2>Ne yapmak istiyorsun?</h2><span>İşine uygun aracı seç</span></div>
+        <div class="tool-grid">
+          <button class="tool-card" data-go="inspect"><span class="tool-icon" data-icon="scan"></span><span><strong>Dosyanı tanı</strong><small>Gerçek tür, uzantı ve dosya özeti.</small></span><span class="card-arrow">↗</span></button>
+          <button class="tool-card" data-go="csv"><span class="tool-icon" data-icon="table"></span><span><strong>Tabloyu düzelt</strong><small>Bozuk karakterler, sütunlar ve tekrarlar.</small></span><span class="card-arrow">↗</span></button>
+          <button class="tool-card" data-go="image"><span class="tool-icon" data-icon="image"></span><span><strong>Görseli hazırla</strong><small>Boyut, biçim, kalite ve döndürme.</small></span><span class="card-arrow">↗</span></button>
+          <button class="tool-card" data-go="text"><span class="tool-icon" data-icon="text"></span><span><strong>Metni toparla</strong><small>JSON, satırlar ve gereksiz boşluklar.</small></span><span class="card-arrow">↗</span></button>
+        </div>
+        <div class="section-heading files-heading"><h2>Çalışma dosyaları <span class="count-label" id="home-file-count">0</span></h2><button class="link-button" id="demo">Örnek dosyalarla dene <span aria-hidden="true">↗</span></button></div>
+        <div id="home-files" class="file-list"></div>
+        <div class="home-footer"><span data-icon="lock"></span>Dosyalar yalnızca açık oturumda tutulur. Sayfayı yenilediğinde çalışma alanı temizlenir.</div>
+      </section>
+
+      <section id="page-inspect" class="page" aria-labelledby="inspect-title">
+        <div class="page-heading compact"><div><div class="eyebrow">DOSYA İNCELE</div><h1 id="inspect-title">İçinde ne var?</h1><p>Uzantının ötesine bak. Bir sorun varsa, nedenini öğren.</p></div><button class="button secondary add-files"><span data-icon="plus"></span>Dosya ekle</button></div>
+        <div class="split-layout"><div class="panel file-picker-panel"><div class="panel-heading"><h2>Dosyalar</h2><span id="inspect-count" class="subtle"></span></div><div id="inspect-files" class="picker-list"></div></div><div id="inspection" class="panel inspection"></div></div>
+      </section>
+
+      <section id="page-csv" class="page" aria-labelledby="csv-title">
+        <div class="page-heading compact"><div><div class="eyebrow">CSV DÜZENLE</div><h1 id="csv-title">Sütunlar yerine otursun.</h1><p>Karakter kodlamasını düzelt, fazlalıkları temizle, düzgün bir tablo indir.</p></div><button class="button secondary add-files"><span data-icon="plus"></span>Dosya ekle</button></div>
+        <div class="panel controls-panel"><div class="field grow"><label for="csv-file">Kaynak dosya</label><select id="csv-file"></select></div><div class="field"><label for="csv-encoding">Karakter kodlaması</label><select id="csv-encoding"><option value="auto">Otomatik</option><option value="utf-8">UTF-8</option><option value="windows-1254">Türkçe · Windows-1254</option><option value="windows-1252">Batı Avrupa · Windows-1252</option><option value="utf-16le">UTF-16 LE</option><option value="utf-16be">UTF-16 BE</option></select></div><div class="field"><label for="csv-delimiter">Sütun ayracı</label><select id="csv-delimiter"><option value="auto">Otomatik</option><option value=";">Noktalı virgül ;</option><option value=",">Virgül ,</option><option value="tab">Sekme</option><option value="|">Dikey çizgi |</option></select></div></div>
+        <div class="panel"><div class="panel-heading"><h2>Temizleme seçenekleri</h2><button class="link-button" id="csv-reset">Seçenekleri sıfırla</button></div><div class="check-row"><label><input type="checkbox" id="csv-trim" checked>Hücre kenarındaki boşluklar</label><label><input type="checkbox" id="csv-empty" checked>Boş satırları kaldır</label><label><input type="checkbox" id="csv-dedupe">Tekrarlanan satırları kaldır</label><label><input type="checkbox" id="csv-header" checked>İlk satır başlık</label></div></div>
+        <div id="csv-summary" class="summary-line"></div><div class="panel table-panel"><div class="panel-heading"><h2>Önizleme</h2><span class="subtle">İlk 100 satır</span></div><div id="csv-preview" class="table-scroll"></div></div>
+        <div class="export-bar"><div class="check-row"><label><input type="checkbox" id="csv-safe" checked>Formül olabilecek hücreleri metne çevir</label><div class="field inline"><label for="csv-out-delimiter">Çıktı ayracı</label><select id="csv-out-delimiter"><option value=";">Noktalı virgül</option><option value=",">Virgül</option><option value="tab">Sekme</option></select></div></div><button class="button primary" id="csv-export" disabled><span data-icon="download"></span>CSV indir</button></div><p class="footnote">Çıktı UTF-8 + BOM olarak kaydedilir. Kaynak dosya değişmez. Formül koruması açıkken =, +, - ve @ ile başlayan hücrelere metin işareti eklenir.</p>
+      </section>
+
+      <section id="page-image" class="page" aria-labelledby="image-title">
+        <div class="page-heading compact"><div><div class="eyebrow">GÖRSEL DÖNÜŞTÜR</div><h1 id="image-title">Doğru boyut. Doğru biçim.</h1><p>Görselini yükleme şartlarına hazırla. Sonucu indirmeden önce gör.</p></div><button class="button secondary add-files"><span data-icon="plus"></span>Görsel ekle</button></div>
+        <div class="image-layout"><div class="panel preview-panel"><div class="panel-heading"><h2>Önizleme</h2><span id="image-info" class="subtle"></span></div><div class="image-stage" id="image-stage"><div class="empty-state"><span data-icon="image"></span><strong>Bir görsel seç</strong><p>JPEG, PNG, WebP ve tarayıcının açabildiği görseller.</p></div></div><div class="image-result" id="image-result"></div></div><div class="panel image-controls"><div class="field"><label for="image-file">Kaynak görsel</label><select id="image-file"></select></div><div class="field"><label for="image-format">Çıktı biçimi</label><select id="image-format"><option value="image/jpeg">JPEG · küçük dosya</option><option value="image/png">PNG · kayıpsız</option><option value="image/webp">WebP · modern</option></select></div><div class="two-fields"><div class="field"><label for="image-width">En fazla genişlik</label><input id="image-width" type="number" min="1" max="12000" value="1920"><small>piksel</small></div><div class="field"><label for="image-height">En fazla yükseklik</label><input id="image-height" type="number" min="1" max="12000" value="1920"><small>piksel</small></div></div><p class="field-note">En-boy oranı korunur. Küçük görseller büyütülmez.</p><div class="field"><label for="image-quality">Kalite <output id="image-quality-label">%85</output></label><input type="range" min="10" max="100" value="85" id="image-quality"></div><div class="field"><label for="image-target">Hedef dosya boyutu <span class="subtle">isteğe bağlı</span></label><div class="input-unit"><input id="image-target" type="number" min="1" max="100000" placeholder="Örn. 500"><span>KB</span></div></div><div class="field"><label>Yön</label><div class="segmented"><button id="image-rotate" class="button secondary"><span data-icon="rotate"></span><span id="rotation-label">0°</span></button><button id="image-flip" class="button secondary" aria-pressed="false">Yatay çevir</button></div></div><div class="field"><label for="image-background">JPEG arka planı</label><input id="image-background" type="color" value="#ffffff"></div><button class="button primary full" id="image-convert" disabled>Dönüştür ve önizle</button><button class="button secondary full" id="image-download" disabled><span data-icon="download"></span>Görseli indir</button><p class="footnote">Çıktı yeniden çizilir; kaynak EXIF/GPS bilgileri kopyalanmaz. Hareketli görseller tek kareye dönüşür. Hedef boyut her görselde sağlanamayabilir.</p></div></div>
+      </section>
+
+      <section id="page-text" class="page" aria-labelledby="text-title">
+        <div class="page-heading compact"><div><div class="eyebrow">METİN TEMİZLE</div><h1 id="text-title">Daha okunur, daha düzenli.</h1><p>Metnini yapıştır veya bir dosya aç. Değişiklikleri karşılaştır.</p></div><button class="button secondary add-files"><span data-icon="plus"></span>Dosya ekle</button></div>
+        <div class="panel text-toolbar"><div class="field grow"><label for="text-file">Dosyadan aç</label><select id="text-file"></select></div><div class="field"><label for="text-action">İşlem</label><select id="text-action"><option value="trim">Satır kenarlarını temizle</option><option value="empty">Boş satırları kaldır</option><option value="dedupe">Tekrarlanan satırları kaldır</option><option value="sort">Satırları sırala (Türkçe)</option><option value="spaces">Fazla boşlukları azalt</option><option value="json">JSON biçimlendir ve doğrula</option><option value="minify">JSON küçült</option><option value="newline">Satır sonlarını düzelt (LF)</option></select></div><button class="button primary" id="text-run">Uygula</button></div>
+        <div class="editor-grid"><div class="panel editor-panel"><div class="panel-heading"><h2>Kaynak</h2><button class="link-button" id="text-clear">Temizle</button></div><textarea id="text-source" spellcheck="false" placeholder="Metnini buraya yapıştır…" aria-label="Kaynak metin"></textarea><div id="text-source-stat" class="editor-stat">0 karakter · 0 satır</div></div><div class="panel editor-panel"><div class="panel-heading"><h2>Sonuç</h2><button class="link-button" id="text-chain" disabled>Kaynak olarak kullan ↩</button></div><textarea id="text-output" readonly spellcheck="false" placeholder="İşlem sonucu burada görünecek." aria-label="İşlenmiş metin"></textarea><div id="text-output-stat" class="editor-stat">Henüz işlem yapılmadı</div></div></div><div class="export-bar"><span id="text-message" class="subtle" aria-live="polite"></span><div class="segmented"><button class="button secondary" id="text-copy" disabled>Kopyala</button><button class="button primary" id="text-download" disabled><span data-icon="download"></span>Sonucu indir</button></div></div>
+      </section>
+
+      <section id="page-rename" class="page" aria-labelledby="rename-title">
+        <div class="page-heading compact"><div><div class="eyebrow">TOPLU ADLANDIR</div><h1 id="rename-title">Bir klasör dolusu düzen.</h1><p>Yeni adları önce gör. Dosyalarını tek ZIP içinde indir.</p></div><button class="button secondary add-files"><span data-icon="plus"></span>Dosya ekle</button></div>
+        <div class="panel"><div class="rename-fields"><div class="field"><label for="rename-prefix">Önek</label><input id="rename-prefix" placeholder="Örn. proje-"></div><div class="field"><label for="rename-find">Bul</label><input id="rename-find" placeholder="Değişecek metin"></div><div class="field"><label for="rename-replace">Değiştir</label><input id="rename-replace" placeholder="Yeni metin"></div><div class="field"><label for="rename-case">Harf biçimi</label><select id="rename-case"><option value="keep">Olduğu gibi</option><option value="lower">küçük harf</option><option value="upper">BÜYÜK HARF</option></select></div></div><div class="check-row rename-options"><label><input id="rename-number" type="checkbox">Sıra numarası ekle · 001</label><label><input id="rename-ascii" type="checkbox">Türkçe karakterleri sadeleştir</label><label><input id="rename-slug" type="checkbox">Boşlukları tireye çevir</label></div></div><div class="summary-line" id="rename-summary"></div><div class="panel table-panel"><div class="panel-heading"><h2>Adlandırma önizlemesi</h2><span class="subtle">Uzantılar korunur</span></div><div id="rename-preview" class="table-scroll"></div></div><div class="export-bar"><p class="subtle">Orijinal dosyalar değişmez. Aynı adlar otomatik numaralandırılır.</p><button class="button primary" id="rename-export" disabled><span data-icon="download"></span>ZIP olarak indir</button></div>
+      </section>
+      <footer class="workspace-footer"><span>Az uğraş. Düzenli dosyalar.</span><span>Ücretsiz & açık kaynak.</span></footer>
+    </main>
+  </div>
+</div>
+<input id="file-input" type="file" multiple hidden>
+<div id="toast" role="status" aria-live="polite"></div>
+<div id="drag-overlay" hidden><span data-icon="upload"></span><h2>Dosyaları bırak, başlayalım.</h2></div>
+<dialog id="about"><div class="dialog-heading"><h2>Dosya Atölyesi</h2><button class="icon-button" id="about-close" aria-label="Kapat">×</button></div><p>Günlük dosya işleri için bağımsız, ücretsiz ve açık kaynak bir araç kutusu.</p><h3>Dosyaların nasıl işlenir?</h3><p>Dosyalar tarayıcı belleğinde işlenir. Sunucuya yüklenmez; analiz, reklam, çerez veya harici yapay zekâ servisi kullanılmaz. Sayfa, dış kaynak ve yazı tipi indirmez.</p><h3>Sınırlar</h3><p>Dosya türü tespiti bir ipucudur; antivirüs taraması veya onarım garantisi değildir. ZIP, PDF ve Office içerikleri açılıp onarılmaz. Şifreli dosyaların şifresi çözülmez. Büyük dosyalarda tarayıcı belleği sınır olabilir.</p><p>Her dosya en fazla 50 MB, çalışma alanı toplam 150 MB ve 100 dosya ile sınırlıdır. Dosyaları küçültme ve düzeltme işlemleri yeni kopyalar üretir.</p><button class="button primary full" id="about-done">Tamam</button></dialog>
+</body></html>

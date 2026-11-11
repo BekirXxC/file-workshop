@@ -1,0 +1,12 @@
+{
+  "name": "file-workshop",
+  "version": "2.1.0",
+  "private": true,
+  "description": "Cihazda çalışan ücretsiz dosya araçları.",
+  "license": "MIT",
+  "scripts": {
+    "test": "node --test tests/*.test.cjs",
+    "portable": "node scripts/standalone.cjs"
+  },
+  "engines": { "node": ">=20" }
+}
