@@ -1,0 +1,74 @@
+name: Build Windows release
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing release tag to update
+        required: false
+        default: v2.2.0
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: windows-release-${{ github.event.release.tag_name || inputs.tag }}
+  cancel-in-progress: false
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    timeout-minutes: 30
+    env:
+      RELEASE_TAG: ${{ github.event.release.tag_name || inputs.tag }}
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: desktop/package-lock.json
+      - name: Build offline Windows executable
+        working-directory: desktop
+        run: |
+          $ErrorActionPreference = 'Stop'
+          npm ci
+          if ($LASTEXITCODE -ne 0) { throw 'npm ci failed' }
+          npm run build
+          if ($LASTEXITCODE -ne 0) { throw 'Windows build failed' }
+      - name: Update executable and its release checksum
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $version = (Get-Content -LiteralPath desktop/package.json -Raw | ConvertFrom-Json).version
+          if ($env:RELEASE_TAG -ne "v$version") { throw 'Release tag must match the desktop package version' }
+          $assetName = "File-Workshop-$version-Windows-x64.exe"
+          $assetPath = Join-Path $PWD "desktop/dist/$assetName"
+          if (!(Test-Path -LiteralPath $assetPath -PathType Leaf)) { throw 'Windows executable is missing' }
+          $checksumDirectory = Join-Path $env:RUNNER_TEMP 'file-workshop-checksums'
+          New-Item -ItemType Directory -Path $checksumDirectory -Force | Out-Null
+          gh release download "$env:RELEASE_TAG" --repo "$env:GITHUB_REPOSITORY" --pattern SHA256SUMS.txt --dir "$checksumDirectory" --clobber
+          if ($LASTEXITCODE -ne 0) { throw 'Could not download existing release checksums' }
+          $checksumPath = Join-Path $checksumDirectory 'SHA256SUMS.txt'
+          $checksumLines = @(Get-Content -LiteralPath $checksumPath)
+          $newEntry = (Get-FileHash -LiteralPath $assetPath -Algorithm SHA256).Hash.ToLowerInvariant() + '  ' + $assetName
+          $entryPattern = '^[0-9a-fA-F]{64}\s+\*?' + [regex]::Escape($assetName) + '$'
+          $replaced = $false
+          $updatedLines = @(foreach ($line in $checksumLines) {
+            if ($line -match $entryPattern) { $newEntry; $replaced = $true } else { $line }
+          })
+          if (!$replaced) { $updatedLines += $newEntry }
+          Set-Content -LiteralPath $checksumPath -Value $updatedLines -Encoding utf8NoBOM
+          gh release upload "$env:RELEASE_TAG" "$assetPath" --repo "$env:GITHUB_REPOSITORY" --clobber
+          if ($LASTEXITCODE -ne 0) { throw 'Could not upload the Windows executable' }
+          gh release upload "$env:RELEASE_TAG" "$checksumPath" --repo "$env:GITHUB_REPOSITORY" --clobber
+          if ($LASTEXITCODE -ne 0) { throw 'Could not upload updated release checksums' }
